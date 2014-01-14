@@ -1,0 +1,28 @@
+{
+  "name": "Ramblings",
+  "version": "0.0.1",
+  "authors": [
+    "Reid Ransom <reid@reidransom.com>"
+  ],
+  "description": "A note-taking application.",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "modernizr": "~2.6.2",
+    "jquery": "~1.10.2",
+    "underscore": "~1.5.2",
+    "backbone": "~1.1.0",
+    "backbone.localStorage": "~1.1.7",
+    "normalize-scss": "~2.1.2",
+    "chai": "~1.8.1",
+    "momentjs": "~2.5.0",
+    "marked": "~0.3.0"
+  }
+}
