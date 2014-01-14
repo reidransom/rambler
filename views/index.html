@@ -1,23 +1,7 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Notes</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <meta property="og:image" name="thumb" content="https://electricpond.com/nap/fb-131101.jpg" />
-
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
-        <!-- build:css css/main.css -->
-        <link rel="stylesheet" href="css/main.css">
-        <!-- endbuild -->
-
+        <title>Ramblings</title>
         <style>
             .update {
                 display: none;
@@ -29,45 +13,30 @@
                 display: none;
             }
         </style>
-
-        <script src="bower_components/modernizr/modernizr.js"></script>
-
     </head>
     <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-
-        <!-- Add your site or application content here -->
-
         <header>
-            <h1>Notes</h1>
+            <h1>Ramblings</h1>
         </header>
 
-        <p>{{= testdata }}</p>
+        <p>Double-click a note to edit.  ESC to save.</p>
 
         <div id="notes-app">
             <ul id="note-list">
             </ul>
             <textarea id="new-note"></textarea>
-            <button id="save-note">Save</button>
+            <button id="test-button">Test Button</button>
         </div>
 
         <footer>
             Electric Pond, Inc.
         </footer>
 
-        <!-- build:js js/main.js -->
         <script src="bower_components/jquery/jquery.js"></script>
-        <script src="bower_components/FitText.js/jquery.fittext.js"></script>
         <script src="bower_components/underscore/underscore.js"></script>
         <script src="bower_components/backbone/backbone.js"></script>
         <script src="bower_components/momentjs/moment.js"></script>
         <script src="bower_components/marked/lib/marked.js"></script>
-
-        <script src="js/responsive.js"></script>
-        <script src="js/notes.js"></script>
-        <!-- endbuild -->
 
         <!-- Templates -->
         <script type="text/template" id="note-template">
@@ -76,9 +45,16 @@
                 <%= marked(body) %>
             </article>
             <div class="update">
-                <textarea class="input"></textarea>
-                <button>Save</button>
+                <textarea class="input"><%= body %></textarea>
             </div>
+        </script>
+
+        <script src="js/notes.js"></script>
+
+        <script type="text/javascript">
+            $(function () {
+                initNotes({{- initdata }})
+            })
         </script>
 
     </body>
