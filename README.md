@@ -2,9 +2,9 @@
 
 ## Roadmap
 
-* SQLite database
-* Look ahead typing - [typeahead.js](http://twitter.github.io/typeahead.js/)
+* ~~SQLite database~~
 * Better design
+* Look ahead typing - [typeahead.js](http://twitter.github.io/typeahead.js/)
 * Calendar-based scroll
 * Thumbnail scrollbar
 

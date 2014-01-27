@@ -1,6 +1,7 @@
 ignore
 node_modules
-static/bower_components
+public/bower_components
 build
 .sass-cache
 *.css
+data.db

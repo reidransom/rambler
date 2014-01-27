@@ -46,15 +46,18 @@ module.exports = function(grunt) {
 
         sass: {
             main: {
+                options: {
+                    cacheLocation: '/tmp/sass-cache'
+                },
                 files: {
-                    'src/css/main.css': 'src/css/main.scss'
+                    'public/css/main.css': 'public/css/main.scss'
                 }
             }
         },
 
         watch: {
             sass: {
-                files: ['src/css/**/*.scss'],
+                files: ['public/css/**/*.scss'],
                 tasks: 'sass'
             }
         },
