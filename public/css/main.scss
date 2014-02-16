@@ -101,13 +101,62 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+$fg1: #45453b;
+$bg1: #171714;
+
+$fg2: #d1d2bc;
+$bg2: #272822;
+
 body {
-    color: #ddd;
-    background-color: #011;
+    color: $fg1;
+    background-color: $bg1;
+    max-width: 640px;
+    margin: auto;
 }
 
+header, footer {
+    margin: 2em 0;
+}
 
+.app {
+    & > ul {
+        margin: 3em 0;
+        padding: 0;
+    }
+    & > ul > li {
+        list-style: none;
+        padding: 0;
+        margin: 1em 0;
+    }
+    .time, .destroy {
+        font-size: 10px;
+    }
+    .view {
+        color: $fg2;
+    }
+    textarea {
+        width: 100%;
+        color: $fg2;
+        background-color: $bg2;
+        border: 1px solid #505050;
+        padding: 0.5em;
+        border-radius: 0.2em;
+        font-family: Monaco, Menlo, 'Ubuntu Mono', Consolas, source-code-pro, monospace;
+        font-size: 12px;
+        opacity: 0.25;
+        &:focus {
+            opacity: 1;
+        }
+    }
+}
 
+a {
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
 
 
 

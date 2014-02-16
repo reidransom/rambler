@@ -2,6 +2,7 @@
     <head>
         <meta charset="utf-8">
         <title>Ramblings</title>
+        <link rel="stylesheet" href="css/main.css">
         <style>
             .update {
                 display: none;
@@ -15,17 +16,16 @@
         </style>
     </head>
     <body>
+        
         <header>
-            <h1>Ramblings</h1>
+            <p>Double-click a note to edit.  ESC to save.</p>
         </header>
 
-        <p>Double-click a note to edit.  ESC to save.</p>
-
-        <div id="notes-app">
+        <div id="notes-app" class="app">
             <ul id="note-list">
             </ul>
             <textarea id="new-note"></textarea>
-            <button id="test-button">Test Button</button>
+            <!--<button id="test-button">Test Button</button>-->
         </div>
 
         <footer>
@@ -38,9 +38,12 @@
         <script src="bower_components/momentjs/moment.js"></script>
         <script src="bower_components/marked/lib/marked.js"></script>
 
+        <script src="js/jquery.autogrow-textarea.js"></script>
+
         <!-- Templates -->
         <script type="text/template" id="note-template">
-            <div><%= moment(created).fromNow() %> - <a class="destroy">delete</a></div>
+            <span class="time"><%= moment(createdAt).fromNow() %></span> - 
+            <a class="destroy">delete</a>
             <article class="view">
                 <%= marked(body) %>
             </article>
@@ -54,6 +57,7 @@
         <script type="text/javascript">
             $(function () {
                 initNotes({{- initdata }})
+                $('textarea').autogrow()
             })
         </script>
 
