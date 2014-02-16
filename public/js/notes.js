@@ -14,9 +14,8 @@
             var created = timestamp_now()
             return {
                 body: "",
-                created: created,
-                updated: created,
-                viewed:  created
+                createdAt: created,
+                updatedAt: created
             }
         }
     }),
@@ -31,7 +30,7 @@
         url: '/note',
 
         // The "sort by" attribute.
-        comparator: 'created'
+        comparator: 'createdAt'
     }),
 
     // Create our global collection of **Notes**.
@@ -68,6 +67,7 @@
         },
         // Show the textarea.
         edit: function () {
+            // todo: close other notes
             this.$el.addClass('editing')
             this.input.focus()
         },
