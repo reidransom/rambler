@@ -1,11 +1,15 @@
 {
-  "name": "notes",
+  "name": "ramble",
   "version": "0.0.1",
   "description": "A note-taking application.",
   "homepage": "http://reidransom.com/",
   "author": {
     "name": "Reid Ransom",
     "email": "reid@reidransom.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/reidransom/ramble.git"
   },
   "devDependencies": {
     "grunt-contrib-watch": "~0.2.0",
