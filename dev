@@ -1,2 +1,2 @@
 #!/bin/bash
-DEBUG=express:* supervisor -w app.js app.js
+DEV=true DEBUG=express:* supervisor -w app.js app.js

@@ -13,10 +13,15 @@ var preferences = {
 
 app.set('port', process.env.PORT || 3000)
 
+app.set('buildroot', path.join(__dirname, 'build'))
+if (process.env.DEV === 'true') {
+    app.set(__dirname)
+}
+
 // Configure server side templating.
 //
 // Use Mustache style delimiters so we don't collide with client side templates.
-app.set('views', path.join(__dirname, 'views'))
+app.set('views', path.join(app.get('buildroot'), 'views'))
 app.set('view engine', 'ejs')
 ejs.open  = '{{'
 ejs.close = '}}'
@@ -26,7 +31,7 @@ app.use(express.bodyParser())
 
 app.use(app.router)
 
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(app.get('buildroot'), 'public')))
 
 app.get('/', routes.index)
 app.post('/note', note.create)

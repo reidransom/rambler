@@ -16,6 +16,14 @@ module.exports = function(grunt) {
 
         pkg: grunt.file.readJSON('package.json'),
 
+        clean: {
+            build: ['build/public', 'build/views']
+        },
+
+        copy: {
+            build: {src: 'views/*', dest: 'build/'}
+        },
+
         svgmin: {
             src: {
                 files: [
@@ -63,120 +71,63 @@ module.exports = function(grunt) {
         },
 
         synchard: {
-            build: {
-                options: {
-                    args: [
-                        '--checksum',
-                        '--archive',
-                        '--verbose',
-                        '--delete',
-                        '--delete-excluded'
-                    ],
-                    exclude: [
-                        '.DS_Store',
-                        '.git*',
-                        'js/*',            // handled by usemin
-                        'css/*',           // handled by usemin
-                        'bower_components' // handled by usemin
-                    ]
-                },
-                files: {
-                    'build/': 'src/'
-                }
-            },
-            stage: {
-                options: {
-                    args: [
-                        '--checksum',
-                        '--archive',
-                        '--verbose',
-                        '--delete',
-                        '--delete-excluded'
-                    ],
-                    exclude: [
-                        '.DS_Store'
-                    ]
-                },
-                files: {
-                    'reidransom@reidransom.com:webapps/notes/': 'build/'
-                }
-            },
             deploy: {
                 options: {
                     args: [
                         '--checksum',
                         '--archive',
                         '--verbose',
-                        '--delete',
-                        '--delete-excluded'
+                        '--delete'
                     ],
                     exclude: [
-                        '.DS_Store'
+                        '.DS_Store',
+                        'node_modules',
+                        '.git',
+                        '/public',
+                        '/views',
+                        'data.db',
+                        '.tmp',
+                        'test'
                     ]
                 },
                 files: {
-                    'reidransom@reidransom.com:webapps/notes/': 'build/'
+                    'reidransom@reidransom.com:webapps/ramble/ramble/': './'
                 }
             }
         },
 
         modernizr: {
-            devFile: 'src/bower_components/modernizr/modernizr.js',
-            outputFile: 'build/js/modernizr.js',
-            files: ['src/js/**/*.js']
-        },
-
-        htmlmin: {
-            options: {
-                //collapseWhitespace: true,
-                removeComments: true,
-                removeAttributeQuotes: true,
-                removeRedundantAttributes: true,
-                collapseBooleanAttributes: true,
-                removeOptionalTags: true
-            },
-            build: {
-                files: [{
-                    expand: true,
-                    src: 'build/*.html',
-                }]
-            }
+            devFile: 'public/bower_components/modernizr/modernizr.js',
+            outputFile: 'build/public/js/modernizr.js',
+            files: ['public/js/**/*.js']
         },
 
         filerev: {
             images: {
-                src: ['build/img/*']
+                src: ['build/public/img/*']
             },
             jscss: {
                 src: [
-                    'build/js/*.js',
-                    'build/css/*.css'
+                    'build/public/js/*.js',
+                    'build/public/css/*.css'
                 ]
             }
         },
 
         useminPrepare: {
-            html: 'build/index.html',
+            html: 'build/views/index.ejs',
             options: {
-                root: 'src',
-                dest: 'build'
+                root: 'public',
+                dest: 'build/public'
             }
         },
 
         usemin: {
             options: {
-                assetsDirs: ['build']
+                assetsDirs: ['build/public']
             },
-            html: 'build/index.html',
-            css:  'build/css/*.css'
-        },
-
-        express: {
-            dev: {
-                options: {
-                    script: 'server.js'
-                }
-            }
+            html: 'build/views/index.ejs',
+            css:  'build/public/css/*.css'
         }
 
     })
@@ -190,9 +141,10 @@ module.exports = function(grunt) {
         'watch'
     ])
     grunt.registerTask('build', [
+        'clean',
+        'copy',
         'sass',
         'svg2png',          // todo: make a cacheing version of this
-        'synchard:build',
         'useminPrepare',
         'concat',
         'uglify',
@@ -201,16 +153,9 @@ module.exports = function(grunt) {
         'imagemin',
         'filerev:images',
         'usemin:css',
-        'modernizr',
+        //'modernizr',
         'filerev:jscss',
-        'usemin:html',
-        'htmlmin'
-    ])
-    grunt.registerTask('stage', [
-        'synchard:stage'
-    ])
-    grunt.registerTask('deploy', [
-        'synchard:deploy'
+        'usemin:html'
     ])
 
 }

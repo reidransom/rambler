@@ -2,18 +2,11 @@
     <head>
         <meta charset="utf-8">
         <title>Ramblings</title>
+        
+        <!-- build:css css/main.css -->
         <link rel="stylesheet" href="css/main.css">
-        <style>
-            .update {
-                display: none;
-            }
-            .editing .update {
-                display: block;
-            }
-            .editing .view {
-                display: none;
-            }
-        </style>
+        <!-- endbuild -->
+
     </head>
     <body>
         
@@ -32,14 +25,6 @@
             Electric Pond, Inc.
         </footer>
 
-        <script src="bower_components/jquery/jquery.js"></script>
-        <script src="bower_components/underscore/underscore.js"></script>
-        <script src="bower_components/backbone/backbone.js"></script>
-        <script src="bower_components/momentjs/moment.js"></script>
-        <script src="bower_components/marked/lib/marked.js"></script>
-
-        <script src="js/jquery.autogrow-textarea.js"></script>
-
         <!-- Templates -->
         <script type="text/template" id="note-template">
             <span class="time"><%= moment(createdAt).fromNow() %></span> - 
@@ -52,11 +37,23 @@
             </div>
         </script>
 
+        <!-- build:js js/main.js -->
+        <script src="bower_components/jquery/jquery.js"></script>
+        <script src="bower_components/underscore/underscore.js"></script>
+        <script src="bower_components/backbone/backbone.js"></script>
+        <script src="bower_components/momentjs/moment.js"></script>
+        <script src="bower_components/marked/lib/marked.js"></script>
+
+        <script src="js/jquery.autogrow-textarea.js"></script>
         <script src="js/notes.js"></script>
+        <!-- endbuild -->
 
         <script type="text/javascript">
             $(function () {
-                initNotes({{- initdata }})
+                initNotes({
+                    url:  {{ url }}
+                    data: {{- initdata }}
+                })
                 $('textarea').autogrow()
             })
         </script>

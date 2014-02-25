@@ -1,0 +1,4 @@
+#!/bin/bash
+../bin/npm install
+../bin/stop
+../bin/start

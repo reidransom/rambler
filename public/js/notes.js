@@ -142,7 +142,8 @@
     
     window.initNotes = function (init_data) {
         // Kick things off!
-        data = init_data
+        data = init_data.data
+        console.log(init_data.url)
         App = new AppView()
     }
 
