@@ -158,6 +158,16 @@ a {
     }
 }
 
+.update {
+    display: none;
+}
+.editing .update {
+    display: block;
+}
+.editing .view {
+    display: none;
+}
+
 
 
 
