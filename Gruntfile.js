@@ -191,5 +191,10 @@ module.exports = function(grunt) {
         'filerev:jscss',
         'usemin:html'
     ])
+    grunt.registerTask('deploy', [
+        'build',
+        'synchard:deploy',
+        'bgShell:wfupdate'
+    ])
 
 }

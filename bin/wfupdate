@@ -1,4 +1,16 @@
-#!/bin/bash
-../bin/npm install
-../bin/stop
-../bin/start
+#!/usr/bin/env python
+
+import os
+import inspect
+import subprocess
+
+def run():
+	cwd = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+	os.chdir(os.path.join(cwd, '..'))
+	subprocess.call('../bin/npm install --production', shell=True)
+	subprocess.call('../bin/stop', shell=True)
+	subprocess.call('../bin/start', shell=True)
+
+if __name__ == '__main__':
+	run()
+
