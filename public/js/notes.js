@@ -27,7 +27,7 @@
         model: Note,
 
         // Configuration for [Backbone.sync](http://backbonejs.org/#Sync)
-        url: '/note',
+        url: '/note', // grunt-replace
 
         // The "sort by" attribute.
         comparator: 'createdAt'
@@ -140,10 +140,9 @@
 
     App, data
     
-    window.initNotes = function (init_data) {
+    window.initNotes = function (initial_data) {
         // Kick things off!
-        data = init_data.data
-        console.log(init_data.url)
+        data = initial_data
         App = new AppView()
     }
 

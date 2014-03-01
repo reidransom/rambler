@@ -93,6 +93,39 @@ module.exports = function(grunt) {
                 files: {
                     'reidransom@reidransom.com:webapps/ramble/ramble/': './'
                 }
+            },
+            getdb: {
+                files: {
+                    './data.db': 'reidransom@reidransom.com:webapps/ramble/ramble/data.db'
+                }
+            }
+        },
+
+        bgShell: {
+            wfupdate: {
+                cmd: 'ssh reidransom@reidransom.com ./webapps/ramble/ramble/bin/wfupdate'
+            }
+        },
+
+        replace: {
+            build: {
+                options: {
+                    prefix: '',
+                    patterns: [
+                        {
+                            match: "url: '/note', // grunt-replace",
+                            replacement: "url: '/ramble/note', // grunt-replace"
+                        }
+                    ]
+                },
+                files: [
+                    {
+                        expand: true,
+                        cwd: '.tmp/concat/js/',
+                        src: 'main.js',
+                        dest: '.tmp/concat/js/'
+                    }
+                ]
             }
         },
 
@@ -147,6 +180,7 @@ module.exports = function(grunt) {
         'svg2png',          // todo: make a cacheing version of this
         'useminPrepare',
         'concat',
+        'replace',
         'uglify',
         'cssmin',
         'svgmin',

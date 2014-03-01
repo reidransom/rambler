@@ -15,7 +15,7 @@ app.set('port', process.env.PORT || 3000)
 
 app.set('buildroot', path.join(__dirname, 'build'))
 if (process.env.DEV === 'true') {
-    app.set(__dirname)
+    app.set('buildroot', __dirname)
 }
 
 // Configure server side templating.

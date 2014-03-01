@@ -50,10 +50,7 @@
 
         <script type="text/javascript">
             $(function () {
-                initNotes({
-                    url:  {{ url }}
-                    data: {{- initdata }}
-                })
+                initNotes({{- initial_data }})
                 $('textarea').autogrow()
             })
         </script>

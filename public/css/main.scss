@@ -125,14 +125,19 @@ header, footer {
     }
     & > ul > li {
         list-style: none;
-        padding: 0;
-        margin: 1em 0;
+        padding: 2em 0;
+        
+        border: none;
+        box-shadow: 0 30px 22px -28px darken($bg1, 3%);
     }
     .time, .destroy {
         font-size: 10px;
     }
     .view {
         color: $fg2;
+        a {
+            color: HSL(187, 73%, 65%);
+        }
     }
     textarea {
         width: 100%;
