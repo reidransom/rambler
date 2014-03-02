@@ -1,6 +1,8 @@
 @import '../bower_components/normalize-scss/_normalize';
+/*
 @import '../bower_components/bourbon/app/assets/stylesheets/_bourbon';
 @import '../bower_components/neat/app/assets/stylesheets/_neat';
+*/
 
 /*! HTML5 Boilerplate v4.3.0 | MIT License | http://h5bp.com/ */
 
@@ -149,6 +151,10 @@ header, footer {
         font-family: Monaco, Menlo, 'Ubuntu Mono', Consolas, source-code-pro, monospace;
         font-size: 12px;
         opacity: 0.25;
+
+        vertical-align: top;
+        transition: height 0.2s;
+
         &:focus {
             opacity: 1;
         }

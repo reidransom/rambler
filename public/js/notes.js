@@ -59,6 +59,7 @@
         render: function () {
             this.$el.html(this.template(this.model.toJSON()))
             this.$input = this.$('.input')
+            this.$('textarea').autosize({append: '\n'})
             return this
         },
         // Remove the model, which will trigger this.remove (set up in initialize (nice and DRY)).
@@ -69,7 +70,8 @@
         edit: function () {
             // todo: close other notes
             this.$el.addClass('editing')
-            this.input.focus()
+            this.$input.trigger('autosize.resize')
+            this.$input.focus()
         },
         // Done editing the note so save changes.
         close: function () {
@@ -104,6 +106,7 @@
         initialize: function (name) {
             // Cache a reference to the new note element.
             this.$newNote = this.$('#new-note')
+            this.$newNote.autosize({append: '\n'})
             // Listen to events on the global **Notes** collection.
             this.listenTo(Notes, 'add',   this.addOne)
             this.listenTo(Notes, 'reset', this.addAll)

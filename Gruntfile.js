@@ -58,7 +58,15 @@ module.exports = function(grunt) {
                     cacheLocation: '/tmp/sass-cache'
                 },
                 files: {
-                    'public/css/main.css': 'public/css/main.scss'
+                    '.tmp/sass/main.css': 'public/css/main.scss'
+                }
+            }
+        },
+
+        autoprefixer: {
+            main: {
+                files: {
+                    'public/css/main.css': '.tmp/sass/main.css'
                 }
             }
         },
@@ -67,6 +75,10 @@ module.exports = function(grunt) {
             sass: {
                 files: ['public/css/**/*.scss'],
                 tasks: 'sass'
+            },
+            autoprefixer: {
+                files: ['.tmp/sass/main.css'],
+                tasks: 'autoprefixer'
             }
         },
 
@@ -171,12 +183,14 @@ module.exports = function(grunt) {
     // Multi-tasks
     grunt.registerTask('default', [
         'sass',
+        'autoprefixer',
         'watch'
     ])
     grunt.registerTask('build', [
         'clean',
         'copy',
         'sass',
+        'autoprefixer',
         'svg2png',          // todo: make a cacheing version of this
         'useminPrepare',
         'concat',

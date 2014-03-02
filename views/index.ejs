@@ -43,15 +43,14 @@
         <script src="bower_components/backbone/backbone.js"></script>
         <script src="bower_components/momentjs/moment.js"></script>
         <script src="bower_components/marked/lib/marked.js"></script>
+        <script src="bower_components/jquery-autosize/jquery.autosize.js"></script>
 
-        <script src="js/jquery.autogrow-textarea.js"></script>
         <script src="js/notes.js"></script>
         <!-- endbuild -->
 
         <script type="text/javascript">
             $(function () {
                 initNotes({{- initial_data }})
-                $('textarea').autogrow()
             })
         </script>
 
