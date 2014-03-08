@@ -110,6 +110,16 @@ module.exports = function(grunt) {
                 files: {
                     './data.db': 'reidransom@reidransom.com:webapps/ramble/ramble/data.db'
                 }
+            },
+            dev: {
+                files: {
+                    './public/fonts/': './public/bower_components/font-awesome/fonts/'
+                }
+            },
+            build: {
+                files: {
+                    './build/public/fonts/': './public/bower_components/font-awesome/fonts/'
+                }
             }
         },
 
@@ -182,6 +192,7 @@ module.exports = function(grunt) {
 
     // Multi-tasks
     grunt.registerTask('default', [
+        'synchard:dev',
         'sass',
         'autoprefixer',
         'watch'
@@ -189,6 +200,7 @@ module.exports = function(grunt) {
     grunt.registerTask('build', [
         'clean',
         'copy',
+        'synchard:dev',
         'sass',
         'autoprefixer',
         'svg2png',          // todo: make a cacheing version of this
@@ -203,7 +215,8 @@ module.exports = function(grunt) {
         'usemin:css',
         //'modernizr',
         'filerev:jscss',
-        'usemin:html'
+        'usemin:html',
+        'synchard:build'
     ])
     grunt.registerTask('deploy', [
         'build',

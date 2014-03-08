@@ -27,14 +27,12 @@
 
         <!-- Templates -->
         <script type="text/template" id="note-template">
-            <span class="time"><%= moment(createdAt).fromNow() %></span> - 
-            <a class="destroy">delete</a>
-            <article class="view">
-                <%= marked(body) %>
-            </article>
-            <div class="update">
-                <textarea class="input"><%= body %></textarea>
+            <div class="toolbar">
+                <small class="time"><%= moment(createdAt).fromNow() %></small>
+                <button class="destroy"><i class="fa fa-times"></i></button>
             </div>
+            <article class="view"><%= marked(body) %></article>
+            <textarea class="input update"><%= body %></textarea>
         </script>
 
         <!-- build:js js/main.js -->

@@ -1,8 +1,5 @@
 @import '../bower_components/normalize-scss/_normalize';
-/*
-@import '../bower_components/bourbon/app/assets/stylesheets/_bourbon';
-@import '../bower_components/neat/app/assets/stylesheets/_neat';
-*/
+@import '../bower_components/font-awesome/scss/font-awesome';
 
 /*! HTML5 Boilerplate v4.3.0 | MIT License | http://h5bp.com/ */
 
@@ -103,6 +100,10 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+$flint: hsl(50, 11%, 41%);
+$celeste: hsl(63, 20%, 78%);
+$onyx: hsl(60, 7%, 8%);
+
 $fg1: #45453b;
 $bg1: #171714;
 
@@ -110,7 +111,7 @@ $fg2: #d1d2bc;
 $bg2: #272822;
 
 body {
-    color: $fg1;
+    color: $celeste;
     background-color: $bg1;
     max-width: 640px;
     margin: auto;
@@ -132,11 +133,7 @@ header, footer {
         border: none;
         box-shadow: 0 30px 22px -28px darken($bg1, 3%);
     }
-    .time, .destroy {
-        font-size: 10px;
-    }
     .view {
-        color: $fg2;
         a {
             color: HSL(187, 73%, 65%);
         }
@@ -161,12 +158,38 @@ header, footer {
     }
 }
 
+small {
+    color: $flint;
+}
+
+.toolbar {
+    button {
+        float: right;
+    }
+}
+
+button {
+    padding: 0.5em;
+    min-width: 2em;
+    border: 0;
+    color: $onyx;
+    background-color: lighten($onyx, 8%);
+    border-radius: 6px;
+    &:hover {
+        color: $flint;
+    }
+}
+
 a {
     text-decoration: none;
     &:hover {
         text-decoration: underline;
         cursor: pointer;
     }
+}
+
+.toolbar {
+    margin-bottom: 1em;
 }
 
 .update {
