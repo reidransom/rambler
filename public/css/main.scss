@@ -103,6 +103,10 @@ textarea {
 $flint: hsl(50, 11%, 41%);
 $celeste: hsl(63, 20%, 78%);
 $onyx: hsl(60, 7%, 8%);
+$yellowgreen: hsl(80, 76%, 53%);
+$turquoiseblue: hsl(187, 73%, 65%);
+
+$mono: Monaco, Menlo, 'Ubuntu Mono', Consolas, source-code-pro, monospace;
 
 $fg1: #45453b;
 $bg1: #171714;
@@ -133,29 +137,20 @@ header, footer {
         border: none;
         box-shadow: 0 30px 22px -28px darken($bg1, 3%);
     }
-    .view {
-        a {
-            color: HSL(187, 73%, 65%);
-        }
-    }
-    textarea {
-        width: 100%;
-        color: $fg2;
-        background-color: $bg2;
-        border: 1px solid #505050;
-        padding: 0.5em;
-        border-radius: 0.2em;
-        font-family: Monaco, Menlo, 'Ubuntu Mono', Consolas, source-code-pro, monospace;
-        font-size: 12px;
-        opacity: 0.25;
+}
 
-        vertical-align: top;
-        transition: height 0.2s;
-
-        &:focus {
-            opacity: 1;
-        }
-    }
+textarea {
+    width: 100%;
+    color: $fg2;
+    background-color: $bg2;
+    border: 1px solid $yellowgreen;
+    padding: 0.5em;
+    border-radius: 0.2em;
+    font-family: $mono;
+    font-size: 12px;
+    box-sizing: border-box;
+    vertical-align: top;
+    transition: height 0.2s;
 }
 
 small {
@@ -166,6 +161,19 @@ small {
     button {
         float: right;
     }
+}
+
+pre {
+    font-family: $mono;
+    font-size: 12px;
+    background-color: lighten($onyx, 8%);
+    padding: 0.5em;
+    border: 1px solid #505050;
+    border-radius: 0.2em;
+}
+code {
+    font-family: $mono;
+    font-size: 12px;
 }
 
 button {
@@ -181,6 +189,7 @@ button {
 }
 
 a {
+    color: $turquoiseblue;
     text-decoration: none;
     &:hover {
         text-decoration: underline;
