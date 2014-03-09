@@ -52,11 +52,23 @@ module.exports = function(grunt) {
             }
         },
 
+        /*
+        // grunt-contrib-sass (ruby sass)
         sass: {
             main: {
                 options: {
                     cacheLocation: '/tmp/sass-cache'
                 },
+                files: {
+                    '.tmp/sass/main.css': 'public/css/main.scss'
+                }
+            }
+        },
+        */
+
+        // grunt-sass (libsass)
+        sass: {
+            main: {
                 files: {
                     '.tmp/sass/main.css': 'public/css/main.scss'
                 }
