@@ -21,7 +21,17 @@ module.exports = function(grunt) {
         },
 
         copy: {
-            build: {src: 'views/*', dest: 'build/'}
+            build: {src: 'views/*', dest: 'build/'},
+            dev: {
+                expand: true,
+                flatten: true,
+                filter: 'isFile',
+                dest: 'public/fonts/',
+                src: [
+                    'public/bower_components/font-awesome/fonts/fontawesome-webfont.*',
+                    'public/bower_components/lato/font/lato-regular.*'
+                ]
+            }
         },
 
         svgmin: {
@@ -123,14 +133,15 @@ module.exports = function(grunt) {
                     './data.db': 'reidransom@reidransom.com:webapps/ramble/ramble/data.db'
                 }
             },
-            dev: {
-                files: {
-                    './public/fonts/': './public/bower_components/font-awesome/fonts/'
-                }
-            },
             build: {
+                options: {
+                    args: [
+                        '--checksum',
+                        '--archive'
+                    ]
+                },
                 files: {
-                    './build/public/fonts/': './public/bower_components/font-awesome/fonts/'
+                    'build/public/fonts/': 'public/fonts/'
                 }
             }
         },
@@ -204,17 +215,17 @@ module.exports = function(grunt) {
 
     // Multi-tasks
     grunt.registerTask('default', [
-        'synchard:dev',
+        'copy:dev',
         'sass',
-        'autoprefixer',
+        'autoprefixer'
+    ])
+    grunt.registerTask('dev', [
+        'default',
         'watch'
     ])
     grunt.registerTask('build', [
         'clean',
-        'copy',
-        'synchard:dev',
-        'sass',
-        'autoprefixer',
+        'default',
         'svg2png',          // todo: make a cacheing version of this
         'useminPrepare',
         'concat',

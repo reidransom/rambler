@@ -6,5 +6,4 @@ build
 *.css
 data.db
 .tmp
-public/fonts/FontAwesome.otf
-public/fonts/fontawesome-webfont.*
+public/fonts/*

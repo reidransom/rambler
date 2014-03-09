@@ -23,5 +23,6 @@
     "momentjs": "~2.5.0",
     "marked": "~0.3.0",
     "jquery-autosize": "~1.18.4",
+    "lato": "~0.2.0"
   }
 }

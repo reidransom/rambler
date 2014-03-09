@@ -1,6 +1,19 @@
 @import '../bower_components/normalize-scss/_normalize';
 @import '../bower_components/font-awesome/scss/font-awesome';
 
+@font-face {
+  font-family: 'Lato';
+  src: url('../fonts/lato-regular.eot');
+  src: local('Lato Regular'),
+       local('Lato-Regular'),
+       url('../fonts/lato-regular.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/lato-regular.woff') format('woff'),
+       url('../fonts/lato-regular.ttf') format('truetype'),
+       url('../fonts/lato-regular.svg#lato') format('svg');
+  font-weight: 400;
+  font-style: normal;
+}
+
 /*! HTML5 Boilerplate v4.3.0 | MIT License | http://h5bp.com/ */
 
 /*
@@ -105,8 +118,11 @@ $celeste: hsl(63, 20%, 78%);
 $onyx: hsl(60, 7%, 8%);
 $yellowgreen: hsl(80, 76%, 53%);
 $turquoiseblue: hsl(187, 73%, 65%);
+$elpaso: hsl(60, 8%, 20%);
+$maire: hsl(70, 8%, 15%);
 
 $mono: Monaco, Menlo, 'Ubuntu Mono', Consolas, source-code-pro, monospace;
+$sans: Lato, Helvetica, sans-serif;
 
 $fg1: #45453b;
 $bg1: #171714;
@@ -116,10 +132,11 @@ $bg2: #272822;
 
 body {
     color: $celeste;
-    background-color: $bg1;
+    background-color: $onyx;
     width: 95%;
     max-width: 640px;
     margin: auto;
+    font-family: $sans;
 }
 
 header, footer {
@@ -140,18 +157,29 @@ header, footer {
     }
 }
 
-textarea {
-    width: 100%;
-    color: $fg2;
-    background-color: $bg2;
-    border: 1px solid $yellowgreen;
-    padding: 0.5em;
-    border-radius: 0.2em;
+textarea, pre, code {
     font-family: $mono;
     font-size: 12px;
+}
+textarea, pre {
+    background-color: $maire;
+    border: 1px solid $flint;
+    border-radius: 0.2em;
+    padding: 0.5em;
+}
+textarea {
+    vertical-align: top;         // jquery.autosize.js
+    transition: height 0.2s;     // jquery.autosize.js
+    width: 100%;
     box-sizing: border-box;
-    vertical-align: top;
-    transition: height 0.2s;
+    color: $celeste;
+    border-color: $yellowgreen;
+}
+
+pre {
+    background-color: lighten($onyx, 8%);
+    padding: 0.5em;
+    border-radius: 0.2em;
 }
 
 small {
@@ -164,25 +192,12 @@ small {
     }
 }
 
-pre {
-    font-family: $mono;
-    font-size: 12px;
-    background-color: lighten($onyx, 8%);
-    padding: 0.5em;
-    border: 1px solid #505050;
-    border-radius: 0.2em;
-}
-code {
-    font-family: $mono;
-    font-size: 12px;
-}
-
 button {
     padding: 0.5em;
     min-width: 2em;
     border: 0;
     color: $onyx;
-    background-color: lighten($onyx, 8%);
+    background-color: $elpaso;
     border-radius: 6px;
     &:hover {
         color: $flint;
@@ -196,6 +211,10 @@ a {
         text-decoration: underline;
         cursor: pointer;
     }
+}
+
+::selection {
+    background-color: lighten($onyx, 20%);
 }
 
 .toolbar {
