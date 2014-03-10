@@ -28,8 +28,8 @@ module.exports = function(grunt) {
                 filter: 'isFile',
                 dest: 'public/fonts/',
                 src: [
-                    'public/bower_components/font-awesome/fonts/fontawesome-webfont.*',
-                    'public/bower_components/lato/font/lato-regular.*'
+                    'public/bower_components/font-awesome/fonts/fontawesome-webfont.*'
+                    //'public/bower_components/lato/font/lato-regular.*'
                 ]
             }
         },

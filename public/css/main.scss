@@ -1,19 +1,6 @@
 @import '../bower_components/normalize-scss/_normalize';
 @import '../bower_components/font-awesome/scss/font-awesome';
 
-@font-face {
-  font-family: 'Lato';
-  src: url('../fonts/lato-regular.eot');
-  src: local('Lato Regular'),
-       local('Lato-Regular'),
-       url('../fonts/lato-regular.eot?#iefix') format('embedded-opentype'),
-       url('../fonts/lato-regular.woff') format('woff'),
-       url('../fonts/lato-regular.ttf') format('truetype'),
-       url('../fonts/lato-regular.svg#lato') format('svg');
-  font-weight: 400;
-  font-style: normal;
-}
-
 /*! HTML5 Boilerplate v4.3.0 | MIT License | http://h5bp.com/ */
 
 /*
@@ -122,7 +109,7 @@ $elpaso: hsl(60, 8%, 20%);
 $maire: hsl(70, 8%, 15%);
 
 $mono: Monaco, Menlo, 'Ubuntu Mono', Consolas, source-code-pro, monospace;
-$sans: Lato, Helvetica, sans-serif;
+$sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 $fg1: #45453b;
 $bg1: #171714;
@@ -137,6 +124,8 @@ body {
     max-width: 640px;
     margin: auto;
     font-family: $sans;
+    font-size: 16px;
+    line-height: 24px;
 }
 
 header, footer {
