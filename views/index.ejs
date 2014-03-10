@@ -30,7 +30,7 @@
         <!-- Templates -->
         <script type="text/template" id="note-template">
             <div class="toolbar">
-                <small class="time"><%= moment(createdAt).fromNow() %></small>
+                <small class="time"><%= moment(updatedAt).calendar() %></small>
                 <button class="destroy"><i class="fa fa-times"></i></button>
             </div>
             <article class="view"><%= marked(body) %></article>
