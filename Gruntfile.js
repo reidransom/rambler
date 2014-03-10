@@ -226,6 +226,7 @@ module.exports = function(grunt) {
     grunt.registerTask('build', [
         'clean',
         'default',
+        'copy:build',
         'svg2png',          // todo: make a cacheing version of this
         'useminPrepare',
         'concat',
