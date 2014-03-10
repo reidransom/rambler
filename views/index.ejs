@@ -31,7 +31,11 @@
         <script type="text/template" id="note-template">
             <div class="toolbar">
                 <small class="time"><%= moment(updatedAt).calendar() %></small>
-                <button class="destroy"><i class="fa fa-times"></i></button>
+                <ul>
+                    <li><button class="destroy"><i class="fa fa-times"></i></button></li><!--
+                    --><li><button class="done update"><i class="fa fa-check"></i></button></li><!--
+                    --><li><button class="edit view"><i class="fa fa-pencil"></i></button></li>
+                </ul>
             </div>
             <article class="view"><%= marked(body) %></article>
             <textarea class="input update"><%= body %></textarea>

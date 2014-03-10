@@ -125,7 +125,11 @@ body {
     margin: auto;
     font-family: $sans;
     font-size: 16px;
-    line-height: 24px;
+    line-height: 150%;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    line-height: 150%;
 }
 
 header, footer {
@@ -175,19 +179,11 @@ small {
     color: $flint;
 }
 
-.toolbar {
-    button {
-        float: right;
-    }
-}
-
 button {
-    padding: 0.5em;
-    min-width: 2em;
     border: 0;
     color: $onyx;
     background-color: $elpaso;
-    border-radius: 6px;
+    border-radius: 3px;
     &:hover {
         color: $flint;
     }
@@ -208,16 +204,51 @@ a {
 
 .toolbar {
     margin-bottom: 1em;
+    ul {
+        padding: 0;
+        list-style: none;
+        float: right;
+        li {
+            float: right;
+            border-right: 3px solid transparent;
+            button {
+                width: 2em;
+                height: 2em;
+                border-radius: 0;
+                &.done {
+                    border-radius: 3px 0 0 3px;
+                    &:hover {
+                        color: green;
+                    }
+                }
+                &.edit {
+                    border-radius: 3px 0 0 3px;
+                    &:hover {
+                        color: yellow;
+                    }
+                }
+                &.destroy {
+                    border-right: 0;
+                    border-radius: 0 3px 3px 0;
+                    &:hover {
+                        color: darken(red, 10%);
+                    }
+                }
+            }
+        }
+    }
 }
 
 .update {
     display: none;
 }
-.editing .update {
-    display: block;
-}
-.editing .view {
-    display: none;
+.editing {
+    .update {
+        display: block;
+    }
+    .view {
+        display: none;
+    }
 }
 
 

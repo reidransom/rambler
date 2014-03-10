@@ -43,8 +43,12 @@
         tagName: 'li',
         template: _.template($('#note-template').html()),
         events: {
-            // Click "delete" to remove a note.
+            // Click the delete button to remove a note.
             'click .destroy'  : 'destroy',
+            // Click the edit button to edit.
+            'click .edit'     : 'edit',
+            // Click the done button to close (and save).
+            'click .done'     : 'close',
             // Double-click a note to edit.
             'dblclick .view'  : 'edit',
             // Pres ESC to save a note.
