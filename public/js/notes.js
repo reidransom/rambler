@@ -7,6 +7,10 @@
         return (new Date()).getTime()
     }
 
+    function scrollTo(el) {
+        window.scroll(0, el.offset().top)
+    }
+
     // ## NOTE MODEL
     // The **Note** model with default attributes.
     var Note = Backbone.Model.extend({
@@ -118,6 +122,7 @@
             // Load **Notes** from the server.
             // Notes.fetch()
             Notes.reset(data)
+            scrollTo(this.$newNote)
         },
         // This is called when a **Note** is added to the **Notes** collection.  It creates the **Note** DOM element and adds it to the list.
         addOne: function (note) {
@@ -139,6 +144,7 @@
             }
             Notes.create({body: body})
             this.$newNote.val('')
+            scrollTo(this.$newNote)
         },
         testButtonClick: function () {
             Notes.fetch({data: {page: 1}})
