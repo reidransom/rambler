@@ -169,6 +169,10 @@ textarea {
     border-color: $yellowgreen;
 }
 
+del {
+    // color: darken(red, 10%);
+}
+
 pre {
     background-color: lighten($onyx, 8%);
     padding: 0.5em;
