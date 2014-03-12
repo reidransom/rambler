@@ -143,10 +143,16 @@ header, footer {
     }
     & > ul > li {
         list-style: none;
-        padding: 2em 0;
-        
         border: none;
-        box-shadow: 0 30px 22px -28px darken($bg1, 3%);
+        // box-shadow: 0 30px 22px -28px darken($bg1, 3%);
+        &:after {
+            content: '~~';
+            text-align: center;
+            display: block;
+            font-size: 300%;
+            margin: 0.5em auto;
+            color: $flint;
+        }
     }
 }
 
