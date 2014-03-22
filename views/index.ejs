@@ -14,6 +14,26 @@
         
         <header>
             <!--<p>Double-click a note to edit.  ESC to save.</p>-->
+
+            <? if (!user) { ?>
+                <p>
+                <a href="/">Home</a> |
+                <a href="/login">Log In</a>
+                </p>
+            <? } else { ?>
+                <p>
+                <a href="/">Home</a> |
+                <a href="/account">Account</a> |
+                <a href="/logout">Log Out</a>
+                </p>
+            <? } ?>
+
+            <? if (!user) { ?>
+                <h2>Welcome! Please log in.</h2>
+            <? } else { ?>
+                <h2>Hello, <?= user.username ?>.</h2>
+            <? } ?>
+        
         </header>
 
         <div id="notes-app" class="app">
@@ -54,7 +74,7 @@
 
         <script type="text/javascript">
             $(function () {
-                initNotes({{- initial_data }})
+                initNotes(<?- initial_data ?>)
             })
         </script>
 

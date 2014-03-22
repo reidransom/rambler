@@ -17,7 +17,7 @@
         defaults: function () {
             var created = timestamp_now()
             return {
-                body: "",
+                body: '',
                 createdAt: created,
                 updatedAt: created
             }
@@ -111,7 +111,7 @@
             'keypress #new-note' : 'createOnEsc',
             'click #test-button' : 'testButtonClick'
         },
-        initialize: function (name) {
+        initialize: function () {
             // Cache a reference to the new note element.
             this.$newNote = this.$('#new-note')
             this.$newNote.autosize({append: '\n'})

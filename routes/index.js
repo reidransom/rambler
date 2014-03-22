@@ -1,3 +1,5 @@
+/* jshint node: true */
+
 var db = require('../models')
 
 exports.index = function (req, res) {
@@ -6,8 +8,9 @@ exports.index = function (req, res) {
         limit: 50
     })
     .success(function (notes) {
-    	res.render('index', {
-    		initial_data: JSON.stringify(notes.rows)
-    	})
+    res.render('index', {
+            initial_data: JSON.stringify(notes.rows),
+            user: req.user
+        })
     })
 }
