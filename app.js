@@ -8,40 +8,17 @@ var express  = require('express'),
     db       = require('./models'),
     routes   = require('./routes'),
     note     = require('./routes/note'),
-    path     = require('path')
+    path     = require('path'),
+    bcrypt   = require('bcrypt')
 
 var app = module.exports = express()
-
-// User models
-var users = [
-    {id: 1, username: 'bob', password: 'secret', email: 'bob@example.com'},
-    {id: 2, username: 'joe', password: 'birthday', email: 'joe@example.com'}
-]
-function findById (id, fn) {
-    var idx = id - 1
-    if (users[idx]) {
-        fn(null, users[idx]);
-    }
-    else {
-        fn(new Error('User ' + id + ' does not exist'))
-    }
-}
-function findByUsername (username, fn) {
-    for (var i = 0, len = users.length; i < len; i += 1) {
-        var user = users[i]
-        if (user.username === username) {
-            return fn(null, user)
-        }
-    }
-    return fn(null, null)
-}
 
 // Passport session setup
 passport.serializeUser(function (user, done) {
     done(null, user.id)
 })
 passport.deserializeUser(function (id, done) {
-    findById(id, function (err, user) {
+    db.User.findById(id, function (err, user) {
         done(err, user)
     })
 })
@@ -49,14 +26,14 @@ passport.deserializeUser(function (id, done) {
 // Use the passport-local strategy
 passport.use(new LocalStrategy(
     function (username, password, done) {
-        findByUsername(username, function (err, user) {
+        db.User.findByUsername(username, function (err, user) {
             if (err) {
                 return done(err)
             }
             if (!user) {
                 return done(null, false, { message: 'Unknown user ' + username })
             }
-            if (user.password != password) {
+            if (!bcrypt.compareSync(password, user.password)) {
                 return done(null, false, { message: 'Invalid password' })
             }
             return done(null, user)
@@ -90,7 +67,7 @@ app.use(passport.session())
 
 // Configure routes
 app.use(app.router)
-app.get('/', routes.index)
+app.get('/', ensureAuthenticated, routes.index)
 app.post('/note', note.create)
 app.get('/note', note.readPage)
 app.get('/note/:id', note.readId)
