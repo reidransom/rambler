@@ -1,6 +1,6 @@
 /* jshint node: true */
 
-var bcrypt = require('bcrypt'),
+var bcrypt = require('bcryptjs'),
     iuser  = {
         username: 'admin',
         password: 'password'
@@ -38,15 +38,13 @@ module.exports = function (sequelize, DataTypes) {
     }
 
     function createAdmin () {
-        bcrypt.genSalt(10, function (err, salt) {
-            bcrypt.hash(iuser.password, salt, function (err, hash) {
-                User.create({
-                    username: iuser.username,
-                    password: hash
-                }).success(function (user) {
-                    console.log('Created initial user "admin".')
-                    console.log(user.values)
-                })
+        bcrypt.hash(iuser.password, 10, function (err, hash) {
+            User.create({
+                username: iuser.username,
+                password: hash
+            }).success(function (user) {
+                console.log('Created initial user "admin".')
+                console.log(user.values)
             })
         })
     }

@@ -9,7 +9,7 @@ var express  = require('express'),
     routes   = require('./routes'),
     note     = require('./routes/note'),
     path     = require('path'),
-    bcrypt   = require('bcrypt')
+    bcrypt   = require('bcryptjs')
 
 var app = module.exports = express()
 
