@@ -1,14 +1,16 @@
+/* jshint node: true */
+
 var fs        = require('fs'),
     path      = require('path'),
     Sequelize = require('sequelize'),
     lodash    = require('lodash'),
-    app       = require('../app'),
     sequelize = new Sequelize(null, null, null, {
         dialect: 'sqlite',
         storage: process.env.STORAGE || path.join(__dirname, '..', 'data.db')
     }),
     db        = {}
- 
+
+// Initialize all the model/*.js files 
 fs
     .readdirSync(__dirname)
     .filter(function(file) {
@@ -18,7 +20,6 @@ fs
         var model = sequelize.import(path.join(__dirname, file))
         db[model.name] = model
     })
- 
 Object.keys(db).forEach(function(modelName) {
     if (db[modelName].options.hasOwnProperty('associate')) {
         db[modelName].options.associate(db)
