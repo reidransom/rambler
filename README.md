@@ -2,8 +2,11 @@
 
 ## Dev
 
-    $ npm install supervisor -g
-    $ supervisor -w server.js server.js
+    $ npm install bower -g
+    $ npm install grunt-cli -g
+    $ npm install
+    $ ./bin/dev
+    $ grunt && grunt watch
 
 ## Test
 

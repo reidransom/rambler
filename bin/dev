@@ -1,2 +1,2 @@
 #!/bin/bash
-DEV=true DEBUG=express:* supervisor -w app.js,models,routes app.js
+DEV=true DEBUG=express:* ./node_modules/supervisor/lib/cli-wrapper.js -w app.js,models,routes app.js

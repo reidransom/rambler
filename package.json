@@ -37,7 +37,8 @@
     "passport-local": "^1.0.0",
     "passport": "^0.2.0",
     "mocha": "^1.18.2",
-    "chai": "^1.9.1"
+    "chai": "^1.9.1",
+    "supervisor": "^0.5.7"
   },
   "dependencies": {
     "express": "~3.4.7",
@@ -49,6 +50,7 @@
     "bcryptjs": "^0.7.12"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --reporter spec"
+    "test": "./node_modules/mocha/bin/mocha --reporter spec",
+    "postinstall": "bower install"
   }
 }
