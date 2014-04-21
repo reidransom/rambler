@@ -4,9 +4,14 @@ var db = require('../models')
 // todo: validate input
 exports.create = function (req, res) {
     var note = req.body
-    db.Note.create({body: note.body})
-    .success(function (note) {
-        res.json({id: note.id})
+    new db.Note({
+        body: note.body
+    })
+    .save()
+    .then(function (note) {
+        res.json({
+            id: note.get('id')
+        })
     })
 }
 
@@ -33,24 +38,18 @@ exports.readId = function (req, res) {
 // UPDATE note
 // todo: validate input
 exports.update = function (req, res) {
-    db.Note.find(req.params.id)
-    .success(function (note) {
-        note.updateAttributes({
-            body: req.body.body
-        })
-        .success(function () {
-            res.json({id: note.id})
-        })
+    new db.Note({id: req.params.id})
+    .save({body: req.body.body}, {patch: true})
+    .then(function (note) {
+        res.json({id: note.id})
     })
 }
 
 // DELETE note
 exports.delete = function (req, res) {
-    db.Note.find(req.params.id)
-    .success(function (note) {
-        var id = note.id
-        note.destroy().success(function () {
-            res.json({id: id})
-        })
+    new db.Note({id: req.params.id})
+    .destroy()
+    .then(function () {
+        res.json({id: req.params.id})
     })
 }

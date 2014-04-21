@@ -1,71 +1,28 @@
-<!DOCTYPE html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Ramblings</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        <!-- build:css css/main.css -->
-        <link rel="stylesheet" href="css/main.css">
-        <!-- endbuild -->
+<h2>Hello, <?= user.get('username') ?>.</h2>
 
-    </head>
-    <body>
-        
-        <header>
-            <!--<p>Double-click a note to edit.  ESC to save.</p>-->
+<div id="notes-app" class="app">
+    <ul id="note-list">
+    </ul>
+    <textarea id="new-note"></textarea>
+    <!--<button id="test-button">Test Button</button>-->
+</div>
 
-            <p>
-                <a href="/">Home</a> |
-                <a href="/account">Account</a> |
-                <a href="/logout">Log Out</a>
-            </p>
+<!-- Templates -->
+<script type="text/template" id="note-template">
+    <div class="toolbar">
+        <small class="time"><%= moment(updatedAt).calendar() %></small>
+        <ul>
+            <li><button class="destroy"><i class="fa fa-times"></i></button></li><!--
+            --><li><button class="done update"><i class="fa fa-check"></i></button></li><!--
+            --><li><button class="edit view"><i class="fa fa-pencil"></i></button></li>
+        </ul>
+    </div>
+    <article class="view"><%= marked(body) %></article>
+    <textarea class="input update"><%= body %></textarea>
+</script>
 
-            <h2>Hello, <?= user.username ?>.</h2>
-    
-        </header>
-
-        <div id="notes-app" class="app">
-            <ul id="note-list">
-            </ul>
-            <textarea id="new-note"></textarea>
-            <!--<button id="test-button">Test Button</button>-->
-        </div>
-
-        <footer>
-            Electric Pond, Inc.
-        </footer>
-
-        <!-- Templates -->
-        <script type="text/template" id="note-template">
-            <div class="toolbar">
-                <small class="time"><%= moment(updatedAt).calendar() %></small>
-                <ul>
-                    <li><button class="destroy"><i class="fa fa-times"></i></button></li><!--
-                    --><li><button class="done update"><i class="fa fa-check"></i></button></li><!--
-                    --><li><button class="edit view"><i class="fa fa-pencil"></i></button></li>
-                </ul>
-            </div>
-            <article class="view"><%= marked(body) %></article>
-            <textarea class="input update"><%= body %></textarea>
-        </script>
-
-        <!-- build:js js/main.js -->
-        <script src="bower_components/jquery/jquery.js"></script>
-        <script src="bower_components/underscore/underscore.js"></script>
-        <script src="bower_components/backbone/backbone.js"></script>
-        <script src="bower_components/momentjs/moment.js"></script>
-        <script src="bower_components/marked/lib/marked.js"></script>
-        <script src="bower_components/jquery-autosize/jquery.autosize.js"></script>
-
-        <script src="js/notes.js"></script>
-        <!-- endbuild -->
-
-        <script type="text/javascript">
-            $(function () {
-                initNotes(<?- initial_data ?>)
-            })
-        </script>
-
-    </body>
-</html>
+<script type="text/javascript">
+    $(function () {
+        initNotes(<?- initial_data ?>)
+    })
+</script>

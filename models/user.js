@@ -1,66 +1,71 @@
 /* jshint node: true */
 
-var bcrypt = require('bcryptjs'),
-    iuser  = {
+var Bookshelf = require('bookshelf').conn,
+    bcrypt = require('bcryptjs'),
+    _ = require('lodash')
+
+var initial_user = {
         username: 'admin',
         password: 'password'
     }
 
-module.exports = function (sequelize, DataTypes) {
-	
-    var User = sequelize.define('User', {
-            username: {
-                type: DataTypes.STRING,
-                unique: true
-            },
-            password: DataTypes.STRING
-        })
+var User = Bookshelf.Model.extend({
+    tableName: 'Users',
+    hasTimestamps: ['createdAt', 'updatedAt']
+})
 
-    User.findById = function (id, fn) {
-        User.find(id).success(function (user) {
-            if (user) {
-                fn(null, user)
-            }
-            else {
-                fn(new Error('User ' + id + ' does not exist'))
-            }
-        })
-    }
-    User.findByUsername = function (username, fn) {
-        User.find({where: {username: username}}).success(function (user) {
-            if (user) {
-                return fn(null, user)
-            }
-            else {
-                return fn(null, null)
-            }
-        })
-    }
-
-    function createAdmin () {
-        bcrypt.hash(iuser.password, 10, function (err, hash) {
-            User.create({
-                username: iuser.username,
-                password: hash
-            }).success(function (user) {
-                console.log('Created initial user "admin".')
-                console.log(user.values)
+User.initTable = function (next) {
+    Bookshelf.knex.schema.hasTable('Users').then(function (exists) {
+        if (exists) {
+            next()
+        }
+        else {
+            Bookshelf.knex.schema.createTable('Users', function (user) {
+                user.increments('id')
+                user.string('username').unique()
+                user.string('password')
+                user.timestamp('createdAt')
+                user.timestamp('updatedAt')
+            }).then(function () {
+                User.createUser(initial_user, next)
             })
-        })
-    }
-
-    sequelize.sync().success(function () {
-        
-        User.findByUsername(iuser.username, function (err, user) {
-            if (user) {
-                console.log('established database')
-            }
-            else {
-                console.log('virgin database - need to create admin user')
-                createAdmin()
-            }
-        })
-
+        }
     })
-	return User
 }
+
+/*
+    values is a dict with attributes:
+        username (required)
+        password (required)
+*/
+User.createUser = function (values, next) {
+    bcrypt.hash(values.password, 10, function (err, hash) {
+        User.forge({
+            username: values.username,
+            password: hash
+        })
+            .save()
+            .then(function () {
+                console.log('Created initial user "' + values.username + '".')
+                next()
+            })
+    })
+}
+
+User.findById = function (id, next) {
+    new this({id: id})
+        .fetch()
+        .then(function (user) {
+            next(null, user)
+        })
+}
+
+User.findByUsername = function (username, next) {
+    new this({username: username})
+        .fetch()
+        .then(function (user) {
+            next(null, user)
+        })
+}
+
+module.exports = Bookshelf.User = User

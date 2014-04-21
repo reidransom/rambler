@@ -1,21 +1,47 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Passport-Local Example</title>
-    </head>
-    <body>
-        <? if (!user) { ?>
-            <p>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ramblings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- build:css css/main.css -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- endbuild -->
+
+</head>
+<body>
+    
+    <header>
+        <p>
             <a href="/">Home</a> | 
-            <a href="/login">Log In</a>
-            </p>
-        <? } else { ?>
-            <p>
-            <a href="/">Home</a> | 
+            <? if (user) { ?>
             <a href="/account">Account</a> | 
             <a href="/logout">Log Out</a>
-            </p>
-        <? } ?>
-        <?- body ?>
-    </body>
+            <? } else { ?>
+            <a href="/login">Log In</a>
+            <? } ?>
+        </p>
+    </header>
+    
+    <?- body ?>
+
+    <footer>
+        Electric Pond, Inc.
+    </footer>
+
+<!-- build:js js/libs.js -->
+<script src="bower_components/jquery/jquery.js"></script>
+<script src="bower_components/underscore/underscore.js"></script>
+<script src="bower_components/backbone/backbone.js"></script>
+<script src="bower_components/momentjs/moment.js"></script>
+<script src="bower_components/marked/lib/marked.js"></script>
+<script src="bower_components/jquery-autosize/jquery.autosize.js"></script>
+<script src="js/notes.js"></script>
+<!-- endbuild -->
+
+<?- scripts ?>
+
+</body>
 </html>

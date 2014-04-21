@@ -1,15 +1,11 @@
 /* jshint node: true */
 
-var db = require('../models')
+var models = require('../models')
 
 exports.index = function (req, res) {
-    db.Note.findAndCountAll({
-        offset: 0,
-        limit: 50
-    })
-    .success(function (notes) {
-    res.render('index', {
-            initial_data: JSON.stringify(notes.rows),
+    models.Note.collection().fetch().then(function (collection) {
+        res.render('index', {
+            initial_data: JSON.stringify(collection.toJSON()),
             user: req.user
         })
     })
