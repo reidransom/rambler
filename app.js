@@ -1,5 +1,9 @@
 /* jshint node: true */
 
+var path = require('path')
+
+process.env.STORAGE = path.join(__dirname, 'db', 'production.sqlite')
+
 var express  = require('express'),
     ejs      = require('ejs'),
     engine   = require('ejs-locals'),
@@ -8,7 +12,6 @@ var express  = require('express'),
     models   = require('./models'),
     routes   = require('./routes'),
     note     = require('./routes/note'),
-    path     = require('path'),
     bcrypt   = require('bcryptjs')
 
 var app = module.exports = express()

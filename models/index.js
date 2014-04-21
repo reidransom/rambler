@@ -4,6 +4,8 @@ var path      = require('path'),
     lodash    = require('lodash'),
     Bookshelf = require('bookshelf')
 
+console.log('storage: ' + process.env.STORAGE)
+
 Bookshelf.conn = Bookshelf.initialize({
     client: 'sqlite',
     connection: {
