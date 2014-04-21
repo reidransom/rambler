@@ -1,32 +1,35 @@
 /* jshint node: true */
 
-var fs        = require('fs'),
-    path      = require('path'),
-    Sequelize = require('sequelize'),
+var path      = require('path'),
     lodash    = require('lodash'),
-    sequelize = new Sequelize(null, null, null, {
-        dialect: 'sqlite',
-        storage: process.env.STORAGE || path.join(__dirname, '..', 'data.db')
-    }),
-    db        = {}
+    Bookshelf = require('bookshelf')
 
-// Initialize all the model/*.js files 
-fs
-    .readdirSync(__dirname)
-    .filter(function(file) {
-        return (file.indexOf('.') !== 0) && (file !== 'index.js')
-    })
-    .forEach(function(file) {
-        var model = sequelize.import(path.join(__dirname, file))
-        db[model.name] = model
-    })
-Object.keys(db).forEach(function(modelName) {
-    if (db[modelName].options.hasOwnProperty('associate')) {
-        db[modelName].options.associate(db)
+Bookshelf.conn = Bookshelf.initialize({
+    client: 'sqlite',
+    connection: {
+        filename: process.env.STORAGE || path.join(__dirname, '..', 'ramble.sqlite')
     }
 })
- 
+
+var User = require('./user'),
+    Note = require('./note')
+
+if (!module.parent) {
+    console.log('hi there')
+}
+
+var initTables = function (next) {
+    User.initTable(function () {
+        Note.initTable(function () {
+            next()
+        })
+    })
+}
+
 module.exports = lodash.extend({
-    sequelize: sequelize,
-    Sequelize: Sequelize
-}, db)
+    Note: Note,
+    User: User,
+    initTables: initTables
+}, Bookshelf.conn)
+
+// module.exports = Bookshelf

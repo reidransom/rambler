@@ -5,7 +5,7 @@ var express  = require('express'),
     engine   = require('ejs-locals'),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
-    db       = require('./models'),
+    models   = require('./models'),
     routes   = require('./routes'),
     note     = require('./routes/note'),
     path     = require('path'),
@@ -18,7 +18,7 @@ passport.serializeUser(function (user, done) {
     done(null, user.id)
 })
 passport.deserializeUser(function (id, done) {
-    db.User.findById(id, function (err, user) {
+    models.User.findById(id, function (err, user) {
         done(err, user)
     })
 })
@@ -26,14 +26,14 @@ passport.deserializeUser(function (id, done) {
 // Use the passport-local strategy
 passport.use(new LocalStrategy(
     function (username, password, done) {
-        db.User.findByUsername(username, function (err, user) {
+        models.User.findByUsername(username, function (err, user) {
             if (err) {
                 return done(err)
             }
             if (!user) {
                 return done(null, false, { message: 'Unknown user ' + username })
             }
-            if (!bcrypt.compareSync(password, user.password)) {
+            if (!bcrypt.compareSync(password, user.get('password'))) {
                 return done(null, false, { message: 'Invalid password' })
             }
             return done(null, user)
@@ -107,18 +107,8 @@ app.use(express.static(path.join(app.get('dirname'), 'public')))
 
 // If not being imported by another module, start the server.
 if (!module.parent) {
-    db
-        .sequelize
-        .sync()  // Add `{force: true}` to erase data and update model schemas.
-        .complete(function (err) {
-            if (err) {
-                throw err
-            }
-            else {
-                app.listen(app.get('port'))
-                console.log('Express started on port ' + app.get('port'))
-            }
-        })
+    app.listen(app.get('port'))
+    console.log('Express started on port ' + app.get('port'))
 }
 
 function ensureAuthenticated (req, res, next) {
