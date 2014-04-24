@@ -11,12 +11,12 @@ var express  = require('express'),
     LocalStrategy = require('passport-local').Strategy,
     models   = require('./models'),
     routes   = require('./routes'),
-    note     = require('./routes/note'),
-    bcrypt   = require('bcryptjs')
+    bcrypt   = require('bcryptjs'),
+    hbs      = require('express-hbs')
 
 var app = module.exports = express()
 
-// Passport session setup
+// passport session setup
 passport.serializeUser(function (user, done) {
     done(null, user.id)
 })
@@ -26,7 +26,7 @@ passport.deserializeUser(function (id, done) {
     })
 })
 
-// Use the passport-local strategy
+// use the passport-local strategy
 passport.use(new LocalStrategy(
     function (username, password, done) {
         models.User.findByUsername(username, function (err, user) {
@@ -50,13 +50,13 @@ app.set('dirname', path.join(__dirname, 'build'))
 if (process.env.DEV === 'true') {
     app.set('dirname', __dirname)
 }
-app.engine('ejs', engine)
-app.set('views', path.join(app.get('dirname'), 'views'))
-app.set('view engine', 'ejs')
 
-// Use Mustache style delimiters so we don't collide with client side templates.
-ejs.open  = '<?'
-ejs.close = '?>'
+// Configure templating
+app.engine('hbs', hbs.express3({
+    partialsDir: __dirname + '/views/partials'
+}))
+app.set('view engine', 'hbs')
+app.set('views', __dirname + '/views')
 
 // Needed to parse JSON data sent by Backbone
 app.use(express.bodyParser())
@@ -70,40 +70,22 @@ app.use(passport.session())
 
 // Configure routes
 app.use(app.router)
-app.get('/', ensureAuthenticated, routes.index)
-app.post('/note', note.create)
-app.get('/note', note.readPage)
-app.get('/note/:id', note.readId)
-app.put('/note/:id', note.update)
-app.delete('/note/:id', note.delete)
+app.get('/', routes.index)
 
-app.get('/account', ensureAuthenticated, function(req, res) {
-    res.render('account', {user: req.user})
+app.post('/note', routes.note.create)
+app.get('/note', routes.note.readPage)
+app.get('/note/:id', routes.note.readId)
+app.put('/note/:id', routes.note.update)
+app.delete('/note/:id', routes.note.delete)
+
+app.get('/settings', ensureAuthenticated, routes.user.settings)
+app.get('/signin', routes.user.signinPage)
+app.post('/signin', function (req, res, next) {
+    routes.user.signin(req, res, passport, next)
 })
-app.get('/login', function (req, res) {
-    res.render('login', {user: req.user, message: req.session.messages})
-})
-app.post('/login', function (req, res, next) {
-    passport.authenticate('local', function (err, user, info) {
-        if (err) {
-            return next(err)
-        }
-        if (!user) {
-            req.session.messages = [info.message]
-            return res.redirect('/login')
-        }
-        req.logIn(user, function (err) {
-            if (err) {
-                return next(err)
-            }
-            return res.redirect('/')
-        })
-    })(req, res, next)
-})
-app.get('/logout', function (req, res) {
-    req.logout()
-    res.redirect('/')
-})
+app.get('/signup', routes.user.signupPage)
+app.post('/signup', routes.user.signup)
+app.get('/signout', routes.user.signout)
 
 // Serve static files
 app.use(express.static(path.join(app.get('dirname'), 'public')))

@@ -28,8 +28,7 @@ module.exports = function(grunt) {
                 filter: 'isFile',
                 dest: 'public/fonts/',
                 src: [
-                    'public/bower_components/font-awesome/fonts/fontawesome-webfont.*'
-                    //'public/bower_components/lato/font/lato-regular.*'
+                    'node_modules/font-awesome/fonts/fontawesome-webfont.*'
                 ]
             }
         },
@@ -103,9 +102,10 @@ module.exports = function(grunt) {
                         '.DS_Store',
                         'node_modules',
                         '.git',
-                        '/public',
-                        '/views',
+                        '/public',  // only sync build/public
+                        '/views',   // only sync build/views
                         'data.db',
+                        '/db',
                         '.tmp',
                         'test'
                     ]
@@ -179,7 +179,7 @@ module.exports = function(grunt) {
         },
 
         useminPrepare: {
-            html: 'build/views/index.ejs',
+            html: 'build/views/*.hbs',
             options: {
                 root: 'public',
                 dest: 'build/public'

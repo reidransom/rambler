@@ -4,51 +4,37 @@ var Bookshelf = require('bookshelf').conn,
     bcrypt = require('bcryptjs'),
     _ = require('lodash')
 
-var initial_user = {
-        username: 'admin',
-        password: 'password'
-    }
-
 var User = Bookshelf.Model.extend({
     tableName: 'Users',
     hasTimestamps: ['createdAt', 'updatedAt']
 })
 
-User.initTable = function (next) {
-    Bookshelf.knex.schema.hasTable('Users').then(function (exists) {
-        if (exists) {
-            next()
-        }
-        else {
-            Bookshelf.knex.schema.createTable('Users', function (user) {
-                user.increments('id')
-                user.string('username').unique()
-                user.string('password')
-                user.timestamp('createdAt')
-                user.timestamp('updatedAt')
-            }).then(function () {
-                User.createUser(initial_user, next)
-            })
-        }
-    })
-}
-
-/*
-    values is a dict with attributes:
-        username (required)
-        password (required)
-*/
 User.createUser = function (values, next) {
     bcrypt.hash(values.password, 10, function (err, hash) {
-        User.forge({
+        Bookshelf.knex('Users').insert({
             username: values.username,
+            email:    values.email,
             password: hash
         })
-            .save()
-            .then(function () {
-                console.log('Created initial user "' + values.username + '".')
-                next()
-            })
+        .exec(function (err, id) {
+            if (err) {
+                if (err.hasOwnProperty('clientError')) {
+                    if (err.clientError.errno === 19) {
+                        return next(null, null, {message: 'Username already exists.'})
+                    }
+                }
+                // Raise unknown error
+                return next(err, null, null)
+            }
+            else {
+                new User({id: id[0]})
+                .fetch()
+                .then(function (user) {
+                    console.log(user)
+                    return next(null, user, null)
+                })
+            }
+        })
     })
 }
 

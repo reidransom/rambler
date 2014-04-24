@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <!-- build:css css/main.css -->
+    <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
     <!-- endbuild -->
 
@@ -15,20 +16,18 @@
     
     <header>
         <p>
-            <a href="/">Home</a> | 
-            <? if (user) { ?>
-            <a href="/account">Account</a> | 
-            <a href="/logout">Log Out</a>
-            <? } else { ?>
-            <a href="/login">Log In</a>
-            <? } ?>
+            <a href="/">Home</a>
+            {{#if user}}
+            | <a href="/settings">Account Settings</a>
+            | <a href="/signout">Sign Out</a>
+            {{/if}}
         </p>
     </header>
     
-    <?- body ?>
+    {{{body}}}
 
     <footer>
-        Electric Pond, Inc.
+        <a href="http://electricpond.com/">Electric Pond, Inc.</a>
     </footer>
 
 <!-- build:js js/libs.js -->
@@ -41,7 +40,7 @@
 <script src="js/notes.js"></script>
 <!-- endbuild -->
 
-<?- scripts ?>
+{{{block "scripts"}}}
 
 </body>
 </html>

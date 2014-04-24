@@ -1,0 +1,17 @@
+{{!< layout}}
+<h2>Sign up for Rambler!</h2>
+{{#if message}}
+<p>{{message}}</p>
+{{/if}}
+<form action="/signup" method="post" class="signin">
+    <label>Username:<br />
+        <input type="text" name="username"/><br/>
+    </label>
+    <label>Email:<br />
+        <input type="text" name="email"/><br/>
+    </label>
+    <label>Password:<br />
+        <input type="password" name="password"/>
+    </label>
+    <input type="submit" value="Sign Up"/>
+</form>

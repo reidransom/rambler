@@ -8,3 +8,4 @@ data.db
 .tmp
 public/fonts/*
 *.sqlite
+sandbox

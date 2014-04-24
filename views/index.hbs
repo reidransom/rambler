@@ -1,10 +1,11 @@
-<h2>Hello, <?= user.get('username') ?>.</h2>
+{{!< layout}}
+
+<h2>Hello, {{user.username}}.</h2>
 
 <div id="notes-app" class="app">
     <ul id="note-list">
     </ul>
     <textarea id="new-note"></textarea>
-    <!--<button id="test-button">Test Button</button>-->
 </div>
 
 <!-- Templates -->
@@ -21,8 +22,10 @@
     <textarea class="input update"><%= body %></textarea>
 </script>
 
+{{#contentFor 'scripts'}}
 <script type="text/javascript">
     $(function () {
-        initNotes(<?- initial_data ?>)
+        initNotes({{{initial_data}}})
     })
 </script>
+{{/contentFor}}
