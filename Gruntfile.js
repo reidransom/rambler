@@ -28,7 +28,7 @@ module.exports = function(grunt) {
                 filter: 'isFile',
                 dest: 'public/fonts/',
                 src: [
-                    'node_modules/font-awesome/fonts/fontawesome-webfont.*'
+                    'public/bower_components/font-awesome/fonts/fontawesome-webfont.*'
                 ]
             }
         },
@@ -135,6 +135,9 @@ module.exports = function(grunt) {
         bgShell: {
             wfupdate: {
                 cmd: 'ssh reidransom@reidransom.com ./webapps/ramble/ramble/bin/wfupdate'
+            },
+            wfbackup: {
+                cmd: './bin/wfbackup'
             }
         },
 
@@ -190,10 +193,18 @@ module.exports = function(grunt) {
             options: {
                 assetsDirs: ['build/public']
             },
-            html: 'build/views/index.ejs',
+            html: 'build/views/*.hbs',
             css:  'build/public/css/*.css'
         }
 
+    })
+
+    // Custom Tasks
+    grunt.registerTask('wfdeploy', 'Deploy to webfaction according to config in ~/.wfdeploy.json', function () {
+        var config = grunt.file.readJSON(process.env.HOME + '/.wfdeploy.json'),
+            app_name = path.basename(__dirname)
+        // grunt.log.writeln(this.name)
+        grunt.log.writeln(config[app_name].ssh)
     })
 
     // Dependencies
@@ -227,6 +238,9 @@ module.exports = function(grunt) {
         'filerev:jscss',
         'usemin:html',
         'synchard:build'
+    ])
+    grunt.registerTask('backup', [
+        'bgShell:wfbackup'
     ])
     grunt.registerTask('deploy', [
         'build',

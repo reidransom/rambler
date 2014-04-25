@@ -8,20 +8,20 @@ exports.signinPage = function (req, res) {
     res.render('signin', {message: req.session.messages})
 }
 
-exports.signin = function (req, res, passport, next) {
+exports.signin = function (req, res, passport, root_url, next) {
     passport.authenticate('local', function (err, user, info) {
         if (err) {
             return next(err)
         }
         if (!user) {
             req.session.messages = [info.message]
-            return res.redirect('/signin')
+            return res.redirect(root_url + 'signin')
         }
         req.logIn(user, function (err) {
             if (err) {
                 return next(err)
             }
-            return res.redirect('/')
+            return res.redirect(root_url)
         })
     })(req, res, next)
 }
@@ -30,21 +30,21 @@ exports.signupPage = function (req, res) {
     res.render('signup', {message: req.session.messages})
 }
 
-exports.signup = function (req, res) {
+exports.signup = function (req, res, root_url, next) {
     models.User.createUser(req.body, function (err, user, info) {
         if (err) {
             return next(err)
         }
         if (!user) {
             req.session.messages = [info.message]
-            return res.redirect('/signup')
+            return res.redirect(root_url + 'signup')
         }
         // User was created successfully so.. sign them in!
         req.logIn(user, function (err) {
             if (err) {
                 return next(err)
             }
-            return res.redirect('/')
+            return res.redirect(root_url)
         })
     })
 }

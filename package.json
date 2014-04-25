@@ -1,5 +1,5 @@
 {
-  "name": "ramble",
+  "name": "rambler-app",
   "version": "0.0.1",
   "description": "A note-taking application.",
   "homepage": "http://reidransom.com/",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/reidransom/ramble.git"
+    "url": "http://github.com/reidransom/rambler-app.git"
   },
   "devDependencies": {
     "grunt-contrib-watch": "~0.2.0",
@@ -50,7 +50,6 @@
     "express-hbs": "^0.7.9"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --reporter spec",
-    "postinstall": "bower install"
+    "test": "./node_modules/mocha/bin/mocha --reporter spec"
   }
 }

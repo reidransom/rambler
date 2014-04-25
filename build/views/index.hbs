@@ -1,0 +1,31 @@
+{{!< layout}}
+
+<h2>Hello, {{user.username}}.</h2>
+
+<div id="notes-app" class="app">
+    <ul id="note-list">
+    </ul>
+    <textarea id="new-note"></textarea>
+</div>
+
+<!-- Templates -->
+<script type="text/template" id="note-template">
+    <div class="toolbar">
+        <small class="time"><%= moment(updatedAt).calendar() %></small>
+        <ul>
+            <li><button class="destroy"><i class="fa fa-times"></i></button></li><!--
+            --><li><button class="done update"><i class="fa fa-check"></i></button></li><!--
+            --><li><button class="edit view"><i class="fa fa-pencil"></i></button></li>
+        </ul>
+    </div>
+    <article class="view"><%= marked(body) %></article>
+    <textarea class="input update"><%= body %></textarea>
+</script>
+
+{{#contentFor 'scripts'}}
+<script type="text/javascript">
+    $(function () {
+        initNotes({{{initial_data}}})
+    })
+</script>
+{{/contentFor}}
