@@ -1,12 +1,7 @@
 /* jshint node: true */
 
-var path = require('path')
-
-process.env.STORAGE = path.join(__dirname, 'db', 'production.sqlite')
-
-var express  = require('express'),
-    ejs      = require('ejs'),
-    engine   = require('ejs-locals'),
+var path = require('path'),
+    express  = require('express'),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
     models   = require('./models'),
@@ -52,11 +47,18 @@ if (process.env.DEV === 'true') {
 }
 
 // Configure templating
+var root_url = '/ramble/'
+if (process.env.DEV === 'true') {
+    root_url = '/'
+}
+hbs.registerHelper('root_url', function () {
+    return root_url
+})
 app.engine('hbs', hbs.express3({
-    partialsDir: __dirname + '/views/partials'
+    partialsDir: app.get('dirname') + '/views/partials'
 }))
 app.set('view engine', 'hbs')
-app.set('views', __dirname + '/views')
+app.set('views', app.get('dirname') + '/views')
 
 // Needed to parse JSON data sent by Backbone
 app.use(express.bodyParser())
@@ -81,10 +83,12 @@ app.delete('/note/:id', routes.note.delete)
 app.get('/settings', ensureAuthenticated, routes.user.settings)
 app.get('/signin', routes.user.signinPage)
 app.post('/signin', function (req, res, next) {
-    routes.user.signin(req, res, passport, next)
+    routes.user.signin(req, res, passport, root_url, next)
 })
 app.get('/signup', routes.user.signupPage)
-app.post('/signup', routes.user.signup)
+app.post('/signup', function (req, res, next) {
+    routes.user.signup(req, res, root_url, next)
+})
 app.get('/signout', routes.user.signout)
 
 // Serve static files
@@ -100,5 +104,5 @@ function ensureAuthenticated (req, res, next) {
     if (req.isAuthenticated()) {
         return next()
     }
-    res.redirect('/login')
+    res.redirect(root_url + 'signin')
 }

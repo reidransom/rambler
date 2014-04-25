@@ -1,20 +1,10 @@
 /* jshint node: true */
 
-var path      = require('path'),
-    lodash    = require('lodash'),
-    Bookshelf = require('bookshelf')
+var Bookshelf = require('bookshelf'),
+    config    = require('../config')
 
-Bookshelf.conn = Bookshelf.initialize({
-    client: 'sqlite',
-    connection: {
-        filename: process.env.STORAGE || path.join(__dirname, '..', 'ramble.sqlite')
-    }
-})
+Bookshelf.conn = Bookshelf.initialize(config.database)
 
-var User = require('./user'),
-    Note = require('./note')
-
-module.exports = lodash.extend({
-    Note: Note,
-    User: User
-}, Bookshelf.conn)
+module.exports      = Bookshelf.conn
+module.exports.User = require('./user')
+module.exports.Note = require('./note')

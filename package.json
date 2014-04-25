@@ -36,7 +36,15 @@
     "grunt-sass": "^0.11.0",
     "mocha": "^1.18.2",
     "chai": "^1.9.1",
-    "supervisor": "^0.5.7"
+    "supervisor": "^0.5.7",
+    "normalize.css": "^3.0.1",
+    "jquery-autosize": "^1.18.4",
+    "underscore": "^1.6.0",
+    "marked": "^0.3.2",
+    "backbone": "^1.1.2",
+    "jquery": "^2.1.0",
+    "moment.twitter": "0.0.1",
+    "font-awesome": "^4.0.3"
   },
   "dependencies": {
     "express": "~3.4.7",
@@ -50,7 +58,6 @@
     "express-hbs": "^0.7.9"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --reporter spec",
-    "postinstall": "bower install"
+    "test": "./node_modules/mocha/bin/mocha --reporter spec"
   }
 }
