@@ -54,9 +54,7 @@ if (process.env.DEV === 'true') {
 hbs.registerHelper('root_url', function () {
     return root_url
 })
-app.engine('hbs', hbs.express3({
-    partialsDir: app.get('dirname') + '/views/partials'
-}))
+app.engine('hbs', hbs.express3())
 app.set('view engine', 'hbs')
 app.set('views', app.get('dirname') + '/views')
 
