@@ -1,7 +1,10 @@
 /* globals $, Backbone, _ */
 
 // This is *very* similar to [todos.js](http://backbonejs.org/docs/todos.html).
-(function (window) {
+function NotesApp (initial_data, root_url) {
+
+    var Note, NoteList, Notes, NoteView, AppView
+    root_url = root_url || '/'
 
     function timestamp_now () {
         return (new Date()).getTime()
@@ -13,7 +16,7 @@
 
     // ## NOTE MODEL
     // The **Note** model with default attributes.
-    var Note = Backbone.Model.extend({
+    Note = Backbone.Model.extend({
         defaults: function () {
             var created = timestamp_now()
             return {
@@ -22,7 +25,7 @@
                 updatedAt: created
             }
         }
-    }),
+    })
 
     // ## NOTE COLLECTION
     NoteList = Backbone.Collection.extend({
@@ -31,14 +34,15 @@
         model: Note,
 
         // Configuration for [Backbone.sync](http://backbonejs.org/#Sync)
-        url: '/note', // grunt-replace
+        //url: '/note', // grunt-replace
+        url: root_url + 'note',
 
         // The "sort by" attribute.
         comparator: 'createdAt'
-    }),
+    })
 
     // Create our global collection of **Notes**.
-    Notes = new NoteList(),
+    Notes = new NoteList()
 
     // ## NOTE ITEM VIEW
     NoteView = Backbone.View.extend({
@@ -99,7 +103,7 @@
                 this.close()
             }
         }
-    }),
+    })
 
     // ## THE APPLICATION
     AppView = Backbone.View.extend({
@@ -121,7 +125,7 @@
             this.listenTo(Notes, 'all',   this.render)
             // Load **Notes** from the server.
             // Notes.fetch()
-            Notes.reset(data)
+            Notes.reset(initial_data)
             scrollTo(this.$newNote)
         },
         // This is called when a **Note** is added to the **Notes** collection.  It creates the **Note** DOM element and adds it to the list.
@@ -149,14 +153,9 @@
         testButtonClick: function () {
             Notes.fetch({data: {page: 1}})
         }
-    }),
+    })
 
-    App, data
-    
-    window.initNotes = function (initial_data) {
-        // Kick things off!
-        data = initial_data
-        App = new AppView()
-    }
+    // Kick things off!
+    new AppView()
 
-})(window);
+};

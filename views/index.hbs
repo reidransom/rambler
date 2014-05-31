@@ -25,7 +25,7 @@
 {{#contentFor 'scripts'}}
 <script type="text/javascript">
     $(function () {
-        initNotes({{{initial_data}}})
+        NotesApp({{{initial_data}}}, '{{{root_url}}}')
     })
 </script>
 {{/contentFor}}
