@@ -50,6 +50,7 @@
     "express-hbs": "^0.7.9"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --reporter spec"
+    "test": "./node_modules/mocha/bin/mocha --reporter spec",
+    "postinstall": "./bin/postinstall"
   }
 }

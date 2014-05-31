@@ -1,0 +1,5 @@
+#!/bin/bash
+if [ -e ../bin/vars ]; then
+    source ../bin/vars
+fi
+./node_modules/knex/bin/knex migrate:latest
