@@ -1,7 +1,6 @@
 /* jshint node: true */
 
-var path = require('path'),
-    express  = require('express'),
+var express  = require('express'),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
     models   = require('./models'),
@@ -41,7 +40,7 @@ passport.use(new LocalStrategy(
 
 // Configure Express
 app.set('port', process.env.PORT || 3000)
-app.set('dirname', path.join(__dirname, 'build'))
+app.set('dirname', __dirname + '/build')
 if (process.env.DEV === 'true') {
     app.set('dirname', __dirname)
 }
@@ -90,7 +89,7 @@ app.post('/signup', function (req, res, next) {
 app.get('/signout', routes.user.signout)
 
 // Serve static files
-app.use(express.static(path.join(app.get('dirname'), 'public')))
+app.use(express.static(app.get('dirname') + '/public'))
 
 // If not being imported by another module, start the server.
 if (!module.parent) {
