@@ -49,7 +49,7 @@ exports.signup = function (req, res, root_url, next) {
     })
 }
 
-exports.signout = function (req, res) {
+exports.signout = function (req, res, root_url) {
     req.logout()
-    res.redirect('/')
+    res.redirect(root_url)
 }
