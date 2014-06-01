@@ -46,10 +46,7 @@ if (process.env.DEV === 'true') {
 }
 
 // Configure templating
-var root_url = '/ramble/'
-if (process.env.DEV === 'true') {
-    root_url = '/'
-}
+var root_url = process.env.ROOT_URL || '/'
 hbs.registerHelper('root_url', function () {
     return root_url
 })
