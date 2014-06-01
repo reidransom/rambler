@@ -83,7 +83,7 @@ app.get('/signup', routes.user.signupPage)
 app.post('/signup', function (req, res, next) {
     routes.user.signup(req, res, root_url, next)
 })
-app.post('/signout', function (req, res) {
+app.get('/signout', function (req, res) {
     routes.user.signout(req, res, root_url)
 })
 
