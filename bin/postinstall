@@ -1,5 +1,6 @@
 #!/bin/bash
 if [ -e ../bin/vars ]; then
     source ../bin/vars
+    cp $STORAGE ../backups/rambler-`date +"%Y%m%d%H%M%S"`.sqlite
 fi
 ./node_modules/knex/bin/knex migrate:latest
