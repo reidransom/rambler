@@ -3,7 +3,7 @@
 var Bookshelf = require('bookshelf').conn
 
 Bookshelf.Note = Bookshelf.Model.extend({
-    tableName: 'Notes',
+    tableName: 'Note',
     hasTimestamps: ['createdAt', 'updatedAt']
 })
 

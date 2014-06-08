@@ -5,13 +5,16 @@ var Bookshelf = require('bookshelf').conn,
     _ = require('lodash')
 
 var User = Bookshelf.Model.extend({
-    tableName: 'Users',
-    hasTimestamps: ['createdAt', 'updatedAt']
+    tableName: 'User',
+    hasTimestamps: ['createdAt', 'updatedAt'],
+    labels: function () {
+        return this.hasMany(Labels)
+    }
 })
 
 User.createUser = function (values, next) {
     bcrypt.hash(values.password, 10, function (err, hash) {
-        Bookshelf.knex('Users').insert({
+        Bookshelf.knex('User').insert({
             username: values.username,
             email:    values.email,
             password: hash
