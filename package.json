@@ -43,14 +43,14 @@
     "sqlite3": "^2.1.19",
     "lodash": "~2.4.1",
     "bcryptjs": "^0.7.12",
-    "knex": "^0.5.13",
+    "knex": "^0.5.15",
     "bookshelf": "^0.6.10",
     "passport-local": "^1.0.0",
     "passport": "^0.2.0",
     "express-hbs": "^0.7.9"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --reporter spec",
+    "test": "NODE_ENV=testing ./node_modules/mocha/bin/mocha --reporter spec --recursive",
     "postinstall": "./bin/postinstall"
   }
 }

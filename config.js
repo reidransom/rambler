@@ -1,14 +1,37 @@
-/* This file is used only by `./node_modules/knex/bin/knex migrate:[task]`
- *
- * See <https://github.com/tgriesser/knex/blob/master/bin/readme.md>
- */
-module.exports = {
-    database: {
-        client: 'sqlite',
-        connection: {
-            filename: process.env.STORAGE || './production.sqlite'
-        }
-    },
-    directory: './migrations',
-    tableName: 'migrations'
+// Update with your config settings.
+
+var environments = {
+
+  development: {
+    client: 'sqlite3',
+    connection: {
+      filename: __dirname + '/data/dev.sqlite'
+    }
+  },
+
+  testing: {
+    client: 'sqlite3',
+    connection: {
+      filename: __dirname + '/data/testing.sqlite'
+    }
+  },
+
+  staging: {
+    client: 'sqlite3',
+    connection: {
+      filename: '/home/reidransom/webapps/rambler_stage/rambler.sqlite'
+    }
+  },
+
+  production: {
+    client: 'sqlite3',
+    connection: {
+      filename: '/home/reidransom/webapps/rambler/rambler.sqlite'
+    }
+  }
+
 };
+
+module.exports = {
+    database: environments[process.env.NODE_ENV || 'development']
+}

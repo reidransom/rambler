@@ -9,6 +9,10 @@ User = Bookshelf.Model.extend({
     tableName: 'User',
     hasTimestamps: ['createdAt', 'updatedAt']
 }, {
+    /*
+        values should be an object containing values for the following
+        keys: username, password, and email.
+    */
     createUser: function (values, next) {
         bcrypt.hash(values.password, 10, function (err, hash) {
             Bookshelf.knex('User').insert({
@@ -30,7 +34,6 @@ User = Bookshelf.Model.extend({
                     new User({id: id[0]})
                     .fetch()
                     .then(function (user) {
-                        console.log(user)
                         return next(null, user, null)
                     })
                 }
