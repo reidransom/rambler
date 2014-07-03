@@ -12,3 +12,7 @@
 ## Test
 
     $ npm test
+
+## Deploy
+
+    $ git push prod master
